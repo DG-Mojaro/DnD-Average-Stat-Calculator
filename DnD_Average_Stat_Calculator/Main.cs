@@ -96,6 +96,8 @@ class Program
             index++;
         }
 
+        Console.WriteLine("The statistcs for rolling " + userInputDieNumber + " d" + userInputDieType + "s, and dropping the lowest are:");
+
         double totalValue = 0;
 
         foreach (KeyValuePair<int, int> pair in rollTotalStats)
@@ -104,22 +106,59 @@ class Program
             totalValue += (pair.Key * pair.Value);
         }
 
+        
         double averageScore = (totalValue / (double)totalCombinations);
         Console.WriteLine("The average score is: " + averageScore);
 
-        double testAverage = ((averageScore * 7) / 6);
-        Console.WriteLine("For 7 drop the lowest, the average is: " + testAverage);
-
-        List<int[]> testToGo = new List<int[]>();
-        int bigNum = 1;
+               
+        List<int[]> allStatsToRoll = new List<int[]>();
+        int totalNumberStatCombinations = 1;
         for (int i = 0; i < 7; i++)
         {
-            testToGo.Add(rollTotals);
-            bigNum *= rollTotals.Length;
+            allStatsToRoll.Add(rollTotals);
+            totalNumberStatCombinations *= rollTotals.Length;
+        }
+
+        List<int[]> allPossibleStatCombinations = CartesianProduct(allStatsToRoll, totalNumberStatCombinations);
+
+        Console.WriteLine();
+        Console.WriteLine("Data processed");
+
+        int[] statTotals = new int[allPossibleRollCombinations.Count];
+
+        Dictionary<int, int> statTotalStats = new Dictionary<int, int>();
+        int indexx = 0;
+        foreach (int[] combination in allPossibleStatCombinations)
+        {
+            statTotals[index] = RemoveLowestNumberSum(combination);
+
+            if (statTotalStats.ContainsKey(statTotals[indexx]))
+            {
+                statTotalStats[statTotals[indexx]]++;
+            }
+            else
+            {
+                statTotalStats[statTotals[indexx]] = 1;
+            }
+
+            indexx++;
+        }
+
+        Console.WriteLine("The statistcs for rolling stats as above 7 times and dropping the lowest are: ");
+
+        double totalStatValue = 0;
+
+        foreach (KeyValuePair<int, int> pair in rollTotalStats)
+        {
+            Console.WriteLine("The stat total of: " + pair.Key + " appeared " + pair.Value + " times.");
+            totalStatValue += (pair.Key * pair.Value);
         }
 
 
-        List<int[]> big7combo = CartesianProduct(testToGo, bigNum);
+        double averageStatScore = (totalStatValue / (double)totalNumberStatCombinations);
+        Console.WriteLine("The average score is: " + averageStatScore);
+
+
 
     }
 
