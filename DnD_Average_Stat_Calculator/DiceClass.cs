@@ -16,12 +16,10 @@
     public int[] Faces
     { get; private set; }
 
-}
-
-class SetOfRolls
-{
-    public SetOfRolls()
+    public int Roll()
     {
-
+        int roll = new Random().Next(1, (this.NumberOfFaces + 1));
+        return roll;
     }
+
 }
