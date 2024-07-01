@@ -74,6 +74,8 @@ class Program
 
         int[] rollTotals = new int[allPossibleRollCombinations.Count];
 
+        // Everything in the main method is in testing from here onwards
+
         // Outputs the dice combinations to the console
         Dictionary<int, int> rollTotalStats = new Dictionary<int, int>();
         int index = 0;
